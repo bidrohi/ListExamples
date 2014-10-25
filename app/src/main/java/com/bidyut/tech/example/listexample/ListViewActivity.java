@@ -6,11 +6,15 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class ListViewActivity extends ActionBarActivity {
+public class ListViewActivity extends ActionBarActivity
+        implements AdapterView.OnItemClickListener {
+    private ListExampleAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,12 +22,20 @@ public class ListViewActivity extends ActionBarActivity {
         setContentView(R.layout.activity_list_view);
 
         final ListView lv = (ListView) findViewById(R.id.list);
-        lv.setAdapter(new ListExampleAdapter(this));
+        mAdapter = new ListExampleAdapter(this);
+        lv.setAdapter(mAdapter);
+        lv.setOnItemClickListener(this);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(this, mAdapter.getItem(position).toString(), Toast.LENGTH_SHORT).show();
     }
 
     private static class ListExampleAdapter extends BaseAdapter {
         private static final String[] sList = new String[] {
-                "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen"
+                "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
+                "Eleven", "Twelve", "Thirteen"
         };
 
         private final LayoutInflater mInflater;
