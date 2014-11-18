@@ -41,7 +41,15 @@ public class RecyclerViewActivity extends ActionBarActivity {
             final View view = mInflater.inflate(R.layout.list_row, parent, false);
             view.setClickable(true);
             view.setBackgroundResource(android.R.drawable.list_selector_background);
-            return new RowViewHolder(view);
+            final RowViewHolder viewHolder = new RowViewHolder(view);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(v.getContext(), sList[viewHolder.getPosition()],
+                            Toast.LENGTH_SHORT).show();
+                }
+            });
+            return viewHolder;
         }
 
         @Override
@@ -55,19 +63,12 @@ public class RecyclerViewActivity extends ActionBarActivity {
         }
     }
 
-    private static class RowViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener {
+    private static class RowViewHolder extends RecyclerView.ViewHolder {
         public final TextView label;
 
         public RowViewHolder(View row) {
             super(row);
             this.label = (TextView) row.findViewById(R.id.label);
-            row.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            Toast.makeText(v.getContext(), "Position: " + getPosition(), Toast.LENGTH_SHORT).show();
         }
     }
 }
