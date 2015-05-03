@@ -37,7 +37,7 @@ public class RecyclerViewActivity extends ActionBarActivity {
         }
 
         @Override
-        public RowViewHolder onCreateViewHolder(ViewGroup parent, int position) {
+        public RowViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             final View view = mInflater.inflate(R.layout.list_row, parent, false);
             view.setClickable(true);
             view.setBackgroundResource(android.R.drawable.list_selector_background);
